@@ -240,19 +240,19 @@ public class astart<T> {
         Map<String, String> heuristic = new HashMap<>();
         /**
          * Connecting To Database*/
-        String host = "jdbc:mysql://localhost:3306/";
-        String user = "root";
-        String pass = "";
+        String host = "jdbc:mysql://gameparty.zapto.org:3306/";
+        String user = "pongpat";
+        String pass = "12031991";
         Connection connection = DriverManager.getConnection(host,user,pass);
         Statement statement = connection.createStatement() ;
-        String pathQuery = "SELECT * FROM newschema.paths where path_type = \"ARL\"";
-        String stationsQuery = "SELECT * FROM newschema.stations where staion_type = \"ARL\"";
+        String pathQuery = "SELECT * FROM newschema.paths";
+        String stationsQuery = "SELECT * FROM newschema.stations";
         ResultSet stations = statement.executeQuery(stationsQuery);
 
         /**
          * Querying Stations Data into heuristic Map*/
 
-        int station_type = stations.findColumn("staion_type");
+        int station_type = stations.findColumn("station_type");
         int station_name = stations.findColumn("station_name");
         String station_name_str;
         List name = new ArrayList();
@@ -280,12 +280,12 @@ public class astart<T> {
         connection.close();
 
         /*Querying Direction by end-user */
-        String a="ARL_Suwanaphum";
-        String b="ARL_Rajchaprag";
+        String a="ARL สุวรรณภูมิ";
+        String b="BRT วัดดอกไม้";
 
         astart<String> aStar = new astart<>(graph);
         for (String path : aStar.astar(a, b)) {
-            System.out.print(" - " + path);
+            System.out.print(" \n " + path);
         }
         System.out.println("\n Distance "+aStar.Source+" to "+aStar.Destinaion+"  = "+aStar.distance);
 
